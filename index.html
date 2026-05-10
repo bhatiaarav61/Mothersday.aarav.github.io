@@ -7,159 +7,67 @@
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
     <style>
         body {
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            margin: 0; padding: 0;
+            display: flex; justify-content: center; align-items: center;
             min-height: 100vh;
             background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
             font-family: 'Poppins', sans-serif;
-            text-align: center;
-            overflow-x: hidden;
+            text-align: center; overflow-x: hidden;
         }
-
-        /* SETUP SECTION */
         #setup-container {
-            background: white;
-            padding: 30px;
-            border-radius: 20px;
+            background: white; padding: 30px; border-radius: 20px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            z-index: 1000;
-            max-width: 400px;
-            width: 90%;
+            z-index: 1000; max-width: 400px; width: 90%;
         }
-
         #setup-container h2 {
-            color: #d81b60;
-            font-family: 'Dancing Script', cursive;
-            font-size: 2rem;
-            margin-bottom: 20px;
+            color: #d81b60; font-family: 'Dancing Script', cursive;
+            font-size: 2rem; margin-bottom: 20px;
         }
-
         .upload-btn {
-            background: #d81b60;
-            color: white;
-            padding: 12px 24px;
-            border-radius: 50px;
-            cursor: pointer;
-            font-weight: bold;
-            display: inline-block;
-            transition: 0.3s;
+            background: #d81b60; color: white; padding: 12px 24px;
+            border-radius: 50px; cursor: pointer; font-weight: bold;
+            display: inline-block; transition: 0.3s;
         }
-
-        .upload-btn:hover {
-            background: #ad1457;
-            transform: scale(1.05);
-        }
-
-        #file-input {
-            display: none;
-        }
-
-        /* THE MAGIC BUTTON (Hidden until photo is uploaded) */
+        #file-input { display: none; }
         #open-gift-btn {
-            display: none; 
-            margin-top: 20px;
-            background: #ff4081;
-            color: white;
-            padding: 15px 30px;
-            border-radius: 50px;
-            font-size: 1.2rem;
-            font-weight: bold;
-            cursor: pointer;
-            border: none;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            display: none; margin-top: 20px; background: #ff4081;
+            color: white; padding: 15px 30px; border-radius: 50px;
+            font-size: 1.2rem; font-weight: bold; cursor: pointer;
+            border: none; box-shadow: 0 5px 15px rgba(0,0,0,0.2);
             animation: pulse 1.5s infinite;
         }
-
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-            100% { transform: scale(1); }
-        }
-
-        /* GREETING SECTION */
-        #main-content {
-            display: none; 
-            animation: fadeIn 2s ease-in;
-            max-width: 500px;
-            padding: 20px;
-        }
-
-        h1 {
-            font-family: 'Dancing Script', cursive;
-            color: #d81b60;
-            font-size: 3.5rem;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px #fff;
-        }
-
+        @keyframes pulse { 0% {transform: scale(1);} 50% {transform: scale(1.1);} 100% {transform: scale(1);} }
+        #main-content { display: none; animation: fadeIn 2s ease-in; max-width: 500px; padding: 20px; }
+        h1 { font-family: 'Dancing Script', cursive; color: #d81b60; font-size: 3.5rem; text-shadow: 2px 2px #fff; }
         .photo-frame {
-            width: 280px;
-            height: 280px;
-            border: 10px solid white;
-            border-radius: 20px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-            margin: 20px auto;
-            overflow: hidden;
-            transform: rotate(-3deg);
+            width: 280px; height: 280px; border: 10px solid white;
+            border-radius: 20px; box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            margin: 20px auto; overflow: hidden; transform: rotate(-3deg);
         }
-
-        .photo-frame img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
+        .photo-frame img { width: 100%; height: 100%; object-fit: cover; }
         .message {
-            font-size: 1.2rem;
-            color: #555;
-            line-height: 1.6;
-            margin-top: 20px;
-            background: rgba(255, 255, 255, 0.6);
-            padding: 20px;
-            border-radius: 15px;
+            font-size: 1.2rem; color: #555; line-height: 1.6;
+            margin-top: 20px; background: rgba(255, 255, 255, 0.6);
+            padding: 20px; border-radius: 15px;
         }
-
-        .hearts {
-            position: fixed;
-            top: -10px;
-            font-size: 20px;
-            user-select: none;
-            z-index: -1;
-            animation: fall linear forwards;
-        }
-
-        @keyframes fall {
-            to { transform: translateY(105vh); }
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+        .hearts { position: fixed; top: -10px; font-size: 20px; z-index: -1; animation: fall linear forwards; }
+        @keyframes fall { to { transform: translateY(105vh); } }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body>
 
-    <!-- Step 1: Upload Page -->
     <div id="setup-container">
         <h2>Create Your Mother's Day Gift ❤️</h2>
         <p>Please upload a beautiful photo of your mother</p>
         <label for="file-input" class="upload-btn">Choose Photo 📷</label>
         <input type="file" id="file-input" accept="image/*">
-        
-        <!-- Step 2: The button that appears AFTER uploading -->
         <button id="open-gift-btn">Open Your Gift 🎁</button>
     </div>
 
-    <!-- Step 3: The Final Greeting -->
     <div id="main-content">
-        <h1 id="greeting-text">Happy Mother's Day!</h1>
-        <div class="photo-frame">
-            <img src="" id="display-image" alt="Mother's Photo">
-        </div>
+        <h1>Happy Mother's Day!</h1>
+        <div class="photo-frame"><img src="" id="display-image"></div>
         <div class="message">
             <p>To the most wonderful woman in the world... <br> 
             Thank you for your endless love, patience, and strength. <br>
@@ -167,7 +75,6 @@
         </div>
     </div>
 
-    <!-- Audio Element -->
     <audio id="bgMusic" loop>
         <source src="mumma.mp3" type="audio/mpeg">
     </audio>
@@ -180,30 +87,31 @@
         const displayImage = document.getElementById('display-image');
         const bgMusic = document.getElementById('bgMusic');
 
-        // When the user selects a photo
         fileInput.addEventListener('change', function() {
             const file = this.files[0];
             if (file) {
                 const reader = new FileReader();
                 reader.onload = function(e) {
                     displayImage.src = e.target.result;
-                    // Show the "Open Gift" button now
                     openGiftBtn.style.display = 'inline-block';
                 }
                 reader.readAsDataURL(file);
             }
         });
 
-        // When the user clicks "Open Your Gift"
         openGiftBtn.addEventListener('click', function() {
-            // 1. Hide setup, show greeting
             setupContainer.style.display = 'none';
             mainContent.style.display = 'block';
             
-            // 2. Play Music (This will work now because it's a direct click!)
-            bgMusic.play().catch(error => console.log("Music play failed: ", error));
+            // Force the audio to load and play
+            bgMusic.load(); 
+            bgMusic.play().then(() => {
+                console.log("Playing audio successfully");
+            }).catch(error => {
+                alert("Music failed to play. Please make sure your song file is named exactly 'mumma.mp3' on GitHub!");
+                console.error("Error:", error);
+            });
             
-            // 3. Start Heart Rain
             setInterval(createHeart, 300);
         });
 
