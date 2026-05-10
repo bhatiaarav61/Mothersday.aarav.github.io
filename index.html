@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Mother's Day ❤️</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+            font-family: 'Poppins', sans-serif;
+            text-align: center;
+            overflow-x: hidden;
+        }
+
+        /* SETUP SECTION (Upload Area) */
+        #setup-container {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            z-index: 1000;
+            max-width: 400px;
+            width: 90%;
+        }
+
+        #setup-container h2 {
+            color: #d81b60;
+            font-family: 'Dancing Script', cursive;
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+
+        .upload-btn {
+            background: #d81b60;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+            display: inline-block;
+            transition: 0.3s;
+        }
+
+        .upload-btn:hover {
+            background: #ad1457;
+            transform: scale(1.05);
+        }
+
+        #file-input {
+            display: none;
+        }
+
+        /* GREETING SECTION (Hidden by default) */
+        #main-content {
+            display: none; 
+            animation: fadeIn 2s ease-in;
+            max-width: 500px;
+            padding: 20px;
+        }
+
+        h1 {
+            font-family: 'Dancing Script', cursive;
+            color: #d81b60;
+            font-size: 3.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px #fff;
+        }
+
+        .photo-frame {
+            width: 280px;
+            height: 280px;
+            border: 10px solid white;
+            border-radius: 20px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            margin: 20px auto;
+            overflow: hidden;
+            transform: rotate(-3deg);
+            transition: 0.3s;
+        }
+
+        .photo-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .message {
+            font-size: 1.2rem;
+            color: #555;
+            line-height: 1.6;
+            margin-top: 20px;
+            background: rgba(255, 255, 255, 0.6);
+            padding: 20px;
+            border-radius: 15px;
+        }
+
+        /* Heart Animation */
+        .hearts {
+            position: fixed;
+            top: -10px;
+            font-size: 20px;
+            user-select: none;
+            z-index: -1;
+            animation: fall linear forwards;
+        }
+
+        @keyframes fall {
+            to { transform: translateY(105vh); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Step 1: The Setup Page -->
+    <div id="setup-container">
+        <h2>Create Your Mother's Day Gift ❤️</h2>
+        <p>Please upload a beautiful photo of your mother to start</p>
+        <label for="file-input" class="upload-btn">Choose Photo 📷</label>
+        <input type="file" id="file-input" accept="image/*">
+    </div>
+
+    <!-- Step 2: The Actual Greeting -->
+    <div id="main-content">
+        <h1>Happy Mother's Day!</h1>
+        
+        <div class="photo-frame">
+            <img src="" id="display-image" alt="Mother's Photo">
+        </div>
+
+        <div class="message">
+            <p>To the most wonderful woman in the world... <br> 
+            Thank you for your endless love, patience, and strength. <br>
+            <b>You are my world! ❤️</b></p>
+        </div>
+    </div>
+
+    <!-- Audio Element -->
+    <!-- Place "mumma.mp3" in the same folder as this HTML file -->
+    <audio id="bgMusic" loop>
+        <source src="mumma.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
+    <script>
+        const fileInput = document.getElementById('file-input');
+        const setupContainer = document.getElementById('setup-container');
+        const mainContent = document.getElementById('main-content');
+        const displayImage = document.getElementById('display-image');
+        const bgMusic = document.getElementById('bgMusic');
+
+        fileInput.addEventListener('change', function() {
+            const file = this.files[0];
+            if (file) {
+                // 1. Convert image to a URL that the browser can display
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    displayImage.src = e.target.result;
+                    
+                    // 2. Transition from setup to greeting
+                    setupContainer.style.display = 'none';
+                    mainContent.style.display = 'block';
+                    
+                    // 3. Start Music
+                    bgMusic.play();
+                    
+                    // 4. Start Heart Rain
+                    setInterval(createHeart, 300);
+                }
+                reader.readAsDataURL(file);
+            }
+        });
+
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('hearts');
+            heart.innerHTML = '❤️';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = Math.random() * 3 + 2 + 's'; 
+            heart.style.opacity = Math.random();
+            document.body.appendChild(heart);
+
+            setTimeout(() => {
+                heart.remove();
+            }, 5000);
+        }
+    </script>
+</body>
+</html>
